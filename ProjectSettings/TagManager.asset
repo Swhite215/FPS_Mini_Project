@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Fire
   - Target
+  - Drone
+  - Shot
   layers:
   - Default
   - TransparentFX

@@ -20,58 +20,39 @@ public class Drone : MonoBehaviour {
 	void Update() {
 
 		float dist = Vector3.Distance (moveToPoint.position, transform.position);
-		print ("Distance to other: " + dist);
-
-		if (positionIndex == 0) {
-			//Move towards first position
-			transform.Translate (Vector3.down * Time.deltaTime * speed);
-
-			if (dist <= acceptableDistance) {
-				transform.Rotate (Vector3.up, 90f, Space.World);
-				positionIndex++;
-				moveToPoint = positions [positionIndex];
-			}
-
-		} else if (positionIndex == 1) {
-			transform.Translate (Vector3.down * Time.deltaTime * speed);
-
-			if (dist <= acceptableDistance) {
-				transform.Rotate (Vector3.up, 90f, Space.World);
-				positionIndex++;
-				moveToPoint = positions [positionIndex];
-			}
-		} else if (positionIndex == 2) {
-			transform.Translate (Vector3.down * Time.deltaTime * speed);
-
-			if (dist <= acceptableDistance) {
-				transform.Rotate (Vector3.up, 90f, Space.World);
-				positionIndex++;
-				moveToPoint = positions [positionIndex];
-			}
-		} else if (positionIndex == 3) {
-			transform.Translate (Vector3.down * Time.deltaTime * speed);
-
-			if (dist <= acceptableDistance) {
-				transform.Rotate (Vector3.up, 90f, Space.World);
-				positionIndex = 0;
-				moveToPoint = positions [positionIndex];
-			}
-		}
-
-
-		//transform.Translate(Vector3.up * Time.deltaTime, Space.World);
-
-		//if (positionTwo) {
-			//float dist = Vector3.Distance (positionTwo.position, transform.position);
-			//print ("Distance to other: " + dist);
-		//}
-
-		//float dist = Vector3.Distance (positionTwo.position, transform.position);
 		//print ("Distance to other: " + dist);
 
-		//if (dist <= 3 &&  myTargetPosition == targetPositions.Down) {
-			//transform.Rotate (Time.deltaTime, 90, 0);
-			//myTargetPosition = targetPositions.Left;
-		//}
+		if (positionIndex == 0) {
+			adjustTracking(dist);
+		} else if (positionIndex == 1) {
+			adjustTracking(dist);
+		} else if (positionIndex == 2) {
+			adjustTracking(dist);
+		} else if (positionIndex == 3) {
+			adjustTracking(dist);
+		}
+
+	}
+
+	void adjustTracking(float dist) {
+		transform.Translate (Vector3.down * Time.deltaTime * speed);
+
+		if (dist <= acceptableDistance) {
+			transform.Rotate (Vector3.up, 90f, Space.World);
+
+			if (positionIndex == 3) {
+				positionIndex = 0;
+			} else {
+				positionIndex++;
+			}
+
+			moveToPoint = positions [positionIndex];
+		}
+	}
+
+	void OnTriggerEnter(Collider other) {
+		if (other.tag == "Shot") {
+			Destroy (gameObject);
+		}
 	}
 }

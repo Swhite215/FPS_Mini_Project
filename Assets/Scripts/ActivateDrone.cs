@@ -12,6 +12,7 @@ public class ActivateDrone : MonoBehaviour {
 		if (other.tag == "Player" && droneCount == 0) {
 			drone.SetActive (true);
 			droneCount++;
+			Destroy (gameObject);
 		}
 	}
 }
