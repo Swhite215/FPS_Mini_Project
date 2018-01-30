@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour {
 	public GameObject scoreCanvas;
 
 	public Text scoreText;
-	public Text ammoText;
 	
 	// Update is called once per frame
 	void Update () {
@@ -24,16 +23,6 @@ public class GameManager : MonoBehaviour {
 			float hitPCT = hits / (float)shots * 100;
 			hitPCT = Mathf.RoundToInt (hitPCT);
 			scoreText.text = hits + " / " + shots + " : " + hitPCT + "%";
-
-			float currentAmmo = ammo - shots;
-
-			if (currentAmmo <= 0) {
-				currentAmmo = ammo;
-			}
-
-			ammoText.text = currentAmmo + " / " + ammo;
-
-
 
 		} else {
 			scoreCanvas.SetActive (false);

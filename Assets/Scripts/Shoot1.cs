@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shoot1 : MonoBehaviour {
 	public GameObject projectile;
@@ -12,6 +13,11 @@ public class Shoot1 : MonoBehaviour {
 	public AudioClip launchNoise;
 
 	private float lastShotTime;
+
+	public int maxAmmo = 40;
+	public int ammo;
+
+	public Text ammoText;
 	
 	// Update is called once per frame
 	void Update () {
@@ -37,5 +43,20 @@ public class Shoot1 : MonoBehaviour {
 		newshot.GetComponent<Rigidbody>().AddForce(transform.up * shotForce, ForceMode.Impulse);
 
 		Object.Destroy (newshot, shotTTL);
+
+		updateAmmo ();
+
+
+	}
+
+	void updateAmmo() {
+		ammo = ammo - 1;
+
+		if (ammo <= 0) {
+			ammo = maxAmmo;
+		}
+
+		ammoText.text = ammo + " / " + maxAmmo;
+
 	}
 }
